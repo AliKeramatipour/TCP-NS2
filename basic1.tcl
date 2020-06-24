@@ -29,22 +29,24 @@ set N5 [$ns node]
 set N6 [$ns node]
 
 #Create a duplex link between the nodes
-
 proc rand_range { min max } { return [expr int(rand() * ($max - $min)) + $min] }
 
+set rand_delay0 [new RandomVariable/Uniform];
+$rand_delay0 set min_ 5ms
+$rand_delay0 set max_ 25ms
+
+set rand_delay1 [new RandomVariable/Uniform];
+$rand_delay1 set min_ 5ms
+$rand_delay1 set max_ 25ms
+
 $ns duplex-link $N1 $R0 100Mb 5ms DropTail
-$ns duplex-link $R0 $N2 100Mb [rand_range 5 25]ms DropTail
+$ns duplex-link $R0 $N2 100Mb $rand_delay0 DropTail
 $ns duplex-link $N5 $R1 100Mb 5ms DropTail
-$ns duplex-link $R1 $N6 100Mb [rand_range 5 25]ms DropTail
+$ns duplex-link $R1 $N6 100Mb $rand_delay1 DropTail
 $ns duplex-link $R0 $R1 100Kb 1ms DropTail
 
 # The queue size at $R is to be 7, including the packet being sent
-$ns queue-limit $R1 $R0 10
-$ns queue-limit $R1 $N6 10
 $ns queue-limit $R0 $R1 10
-$ns queue-limit $R1 $N5 10
-$ns queue-limit $R0 $N1 10
-$ns queue-limit $R0 $N2 10
 
 # some hints for nam
 # color packets of flow 0 red
@@ -54,7 +56,7 @@ $ns duplex-link-op $R0 $R1 orient right
 $ns duplex-link-op $R1 $N5 orient right
 $ns duplex-link-op $R1 $N6 orient right
 $ns duplex-link-op $N2 $R0 orient right
-#$ns duplex-link-op $R0 $N2 queuePos 0.5
+$ns duplex-link-op $R0 $N2 queuePos 0.5
 
 $ns color 1 Blue
 #$ns color 1 Blue
