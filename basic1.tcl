@@ -1,16 +1,15 @@
 set protocol $argv
 set ns [new Simulator]
-set namfile [open basic1.nam w]
+set namfile [open $protocol.nam w]
 $ns namtrace-all $namfile
-set tracefile [open basic1.tr w]
-$ns trace-all $tracefile
+set tracefile [open $protocol.tr w]
+#$ns trace-all $tracefile
 
 proc finish {} {
         global ns namfile tracefile
         $ns flush-trace
         close $namfile
         close $tracefile
-	exec nam basic1.nam &
         exit 0
 	exit 1
 }
@@ -80,6 +79,10 @@ $ns attach-agent $N2 $tcp1
 $tcp0 attach $tracefile
 $tcp0 tracevar cwnd_
 $tcp0 tracevar ack_
+
+$tcp1 attach $tracefile
+$tcp1 tracevar cwnd_
+$tcp1 tracevar ack_
 #-------------------------------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------------------------------
