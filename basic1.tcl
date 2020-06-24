@@ -51,12 +51,11 @@ $ns queue-limit $R0 $R1 10
 # some hints for nam
 # color packets of flow 0 red
 $ns color 0 Red
-$ns duplex-link-op $N1 $R0 orient right
+$ns duplex-link-op $N1 $R0 orient right-down
+$ns duplex-link-op $N2 $R0 orient right-up
 $ns duplex-link-op $R0 $R1 orient right
-$ns duplex-link-op $R1 $N5 orient right
-$ns duplex-link-op $R1 $N6 orient right
-$ns duplex-link-op $N2 $R0 orient right
-$ns duplex-link-op $R0 $N2 queuePos 0.5
+$ns duplex-link-op $R1 $N5 orient right-up
+$ns duplex-link-op $R1 $N6 orient right-down
 
 $ns color 1 Blue
 #$ns color 1 Blue
