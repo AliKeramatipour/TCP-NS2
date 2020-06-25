@@ -4,9 +4,8 @@ set tracefile [open $protocol.tr w]
 $ns trace-all $tracefile
 
 proc finish {} {
-        global ns namfile tracefile
+        global ns tracefile
         $ns flush-trace
-        close $namfile
         close $tracefile
         exit 0
 	exit 1
