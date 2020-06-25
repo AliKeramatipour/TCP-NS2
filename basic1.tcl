@@ -23,21 +23,15 @@ set N6 [$ns node]
 
 #-------------------------------------------------------------------------------------------------------
 # generating those random variables for random delays
-set rand_delay0 [new RandomVariable/Uniform];
-$rand_delay0 set min_ 5ms
-$rand_delay0 set max_ 25ms
-
-set rand_delay1 [new RandomVariable/Uniform];
-$rand_delay1 set min_ 5ms
-$rand_delay1 set max_ 25ms
+proc rand_range { min max } { return [expr int(rand() * ($max - $min + 1)) + $min] }
 #-------------------------------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------------------------------
 # defining the links and their speed - delay - types etc...
 $ns duplex-link $N1 $R0 100Mb 5ms DropTail
-$ns duplex-link $R0 $N2 100Mb $rand_delay0 DropTail
-$ns duplex-link $N5 $R1 100Mb 5ms DropTail
-$ns duplex-link $R1 $N6 100Mb $rand_delay1 DropTail
+$ns duplex-link $N2 $R0 100Mb [rand_range 5 25]ms DropTail
+$ns duplex-link $R1 $N5 100Mb 5ms DropTail
+$ns duplex-link $R1 $N6 100Mb [rand_range 5 25]ms DropTail
 $ns duplex-link $R0 $R1 100Kb 1ms DropTail
 #-------------------------------------------------------------------------------------------------------
 

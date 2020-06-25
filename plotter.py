@@ -2,14 +2,14 @@ import nstrace
 import sys
 import matplotlib.pyplot as plt
 
-RUNNUM = 2
+RUNNUM = 10
 TIMELIMIT = 1000
 list1 = []
 list2 = []
 ll1 = []
 ll2 = []
 timeVals = []
-
+ptr = []
 
 def plotter(protocolname, varName, srcNode):
     total = 0
@@ -46,16 +46,22 @@ def plotter(protocolname, varName, srcNode):
 
 def getFunc(id, time):
     res = 0
-    for i in range(0,len(ll1[id])):
-        if ll1[id][i] < time:
+    tmp = 0
+    for i in range(ptr[id],len(ll1[id])):
+        if ll1[id][i] <= time:
             res = ll2[id][i]
+            tmp = i
+    ptr[id] = tmp
     return res
 
 def plotAtt(protocolname, varName, srcNode, clr, lbl):
-    global ll1, ll2, timeVals
+    global ll1, ll2, timeVals,ptr
     ll1 = []
     ll2 = []
     plotter(protocolname, varName, srcNode)
+    for i in range(0,RUNNUM):
+        ptr[i] = 0
+    
     finalVals = []
     for time in timeVals:
         avgVal = 0
@@ -70,8 +76,8 @@ def plotAtt(protocolname, varName, srcNode, clr, lbl):
 
 timeVals = range(0,TIMELIMIT+1)
 def plotALL(varName):
-    plotAtt("Reno", varName, 0, "red",  "Reno, c1")
-    plotAtt("Reno", varName, 1, "blue", "Reno, c2")
+    plotAtt("Newreno", varName, 0, "red",  "NewReno, c1")
+    plotAtt("Newreno", varName, 1, "blue", "NewReno, c2")
 
     plotAtt("Tahoe", varName, 0, "purple", "Tahoe, c1")
     plotAtt("Tahoe", varName, 1, "yellow", "Tahoe, c2")
@@ -81,6 +87,9 @@ def plotALL(varName):
 
     plt.legend(loc='best')
     plt.show()
+
+for i in range(0, RUNNUM):
+    ptr.append(0)
 
 plotALL("rtt_")
 
