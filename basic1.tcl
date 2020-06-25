@@ -1,6 +1,7 @@
-set protocol $argv
+set protocol [lindex $argv 0]
+set runNum [lindex $argv 1]
 set ns [new Simulator]
-set tracefile [open $protocol.tr w]
+set tracefile [open $protocol$runNum.tr w]
 $ns trace-all $tracefile
 
 proc finish {} {
