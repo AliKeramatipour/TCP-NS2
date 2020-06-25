@@ -3,7 +3,7 @@ set ns [new Simulator]
 set namfile [open $protocol.nam w]
 $ns namtrace-all $namfile
 set tracefile [open $protocol.tr w]
-#$ns trace-all $tracefile
+$ns trace-all $tracefile
 
 proc finish {} {
         global ns namfile tracefile
@@ -79,10 +79,12 @@ $ns attach-agent $N2 $tcp1
 $tcp0 attach $tracefile
 $tcp0 tracevar cwnd_
 $tcp0 tracevar ack_
+$tcp0 tracevar rtt_
 
 $tcp1 attach $tracefile
 $tcp1 tracevar cwnd_
 $tcp1 tracevar ack_
+$tcp1 tracevar rtt_
 #-------------------------------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------------------------------
@@ -112,7 +114,7 @@ $myftp1 attach-agent $tcp1
 
 $ns at 0.0 "$myftp0 start"
 $ns at 0.0 "$myftp1 start"
-$ns at 100.0 "finish"
+$ns at 1000.0 "finish"
 
 # run!
 $ns run
