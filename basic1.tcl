@@ -1,7 +1,5 @@
 set protocol $argv
 set ns [new Simulator]
-set namfile [open $protocol.nam w]
-$ns namtrace-all $namfile
 set tracefile [open $protocol.tr w]
 $ns trace-all $tracefile
 
@@ -50,25 +48,13 @@ $ns queue-limit $R0 $R1 10
 #-------------------------------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------------------------------
-# designing the nam animation look
-$ns color 0 Red
-$ns color 1 Blue
-
-$ns duplex-link-op $N1 $R0 orient right-down
-$ns duplex-link-op $N2 $R0 orient right-up
-$ns duplex-link-op $R0 $R1 orient right
-$ns duplex-link-op $R1 $N5 orient right-up
-$ns duplex-link-op $R1 $N6 orient right-down
-#-------------------------------------------------------------------------------------------------------
-
-#-------------------------------------------------------------------------------------------------------
 # creating tcp agents and setting congestion control protocol
-set tcp0 [new Agent/TCP/$protocol]
+set tcp0 [new Agent/$protocol]
 $tcp0 set class_ 0
 $tcp0 set ttl_ 64
 $ns attach-agent $N1 $tcp0
 
-set tcp1 [new Agent/TCP/$protocol]
+set tcp1 [new Agent/$protocol]
 $tcp1 set class_ 1
 $tcp1 set ttl_ 64
 $ns attach-agent $N2 $tcp1
