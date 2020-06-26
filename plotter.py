@@ -106,11 +106,3 @@ for i in range(0, RUNNUM):
     ptr.append(0)
 
 plotALL("loss", "GOODPUT")
-
-
-
-
-
-
-
-
