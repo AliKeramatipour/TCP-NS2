@@ -2,12 +2,14 @@ set protocol [lindex $argv 0]
 set runNum [lindex $argv 1]
 set ns [new Simulator]
 set tracefile [open $protocol$runNum.tr w]
+set namfile [open basic1.nam w]
 $ns trace-all $tracefile
 
 proc finish {} {
-        global ns tracefile
+        global ns namfile tracefile
         $ns flush-trace
         close $tracefile
+        close $namfile
         exit 0
 	exit 1
 }
