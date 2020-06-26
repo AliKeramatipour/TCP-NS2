@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 import math
 
 RUNNUM = 10
-TIMELIMIT = 1000
+TIMELIMIT = 100
 ll1 = []
 ll2 = []
 timeVals = []
 ptr = []
 
-def plotter(protocolname, varName, srcNode):
+def getData(protocolname, varName, srcNode):
     total = 0.0
     dropped = 0.0
     for i in range(0,RUNNUM):
@@ -62,7 +62,7 @@ def plotAtt(protocolname, varName, srcNode, clr, lbl):
     global ll1, ll2, timeVals, ptr
     ll1 = []
     ll2 = []
-    plotter(protocolname, varName, srcNode)
+    getData(protocolname, varName, srcNode)
     for i in range(0,RUNNUM):
         ptr[i] = 0
     
