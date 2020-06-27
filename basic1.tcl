@@ -3,6 +3,7 @@ set runNum [lindex $argv 1]
 set ns [new Simulator]
 set tracefile [open $protocol$runNum.tr w]
 set namfile [open basic1.nam w]
+$ns namtrace-all $namfile
 $ns trace-all $tracefile
 
 proc finish {} {
